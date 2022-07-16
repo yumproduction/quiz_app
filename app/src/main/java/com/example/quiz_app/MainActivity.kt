@@ -1,31 +1,32 @@
 package com.example.quiz_app
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.example.quiz_app.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding  //defining the binding class
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(R.layout.activity_main)
 
         hideSystemBars()
-
-        binding.btnStart.setOnClickListener{
-            print(binding.etName.text.toString().isEmpty())
-            if(binding.etName.text.toString().isEmpty()){
-                Toast.makeText(this, "Please, enetr your name", Toast.LENGTH_SHORT)
+        btn_start.setOnClickListener {
+            if (et_name.text.toString().isEmpty()) {
+                Toast.makeText(this, "Please, enetr your name", Toast.LENGTH_SHORT).show()
+            }else{
+                val intent = Intent(this, QuizQuestionActivity:: class.java)
+                startActivity(intent)
+                finish()
             }
         }
+
     }
 
     private fun hideSystemBars() {
