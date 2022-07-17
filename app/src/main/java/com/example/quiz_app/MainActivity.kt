@@ -15,13 +15,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        hideSystemBars()
         btn_start.setOnClickListener {
             if (et_name.text.toString().isEmpty()) {
-                Toast.makeText(this, "Please, enetr your name", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please, enter your name", Toast.LENGTH_SHORT).show()
             }else{
                 val intent = Intent(this, QuizQuestionActivity:: class.java)
+                intent.putExtra(Constants.USER_NAME,et_name.text.toString())
                 startActivity(intent)
                 finish()
             }
@@ -29,13 +28,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun hideSystemBars() {
-        val windowInsetsController =
-            ViewCompat.getWindowInsetsController(window.decorView) ?: return
-        // Configure the behavior of the hidden system bars
-        windowInsetsController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        // Hide both the status bar and the navigation bar
-        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
-    }
 }
